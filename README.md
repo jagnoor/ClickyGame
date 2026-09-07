@@ -1,10 +1,11 @@
 # Clicky Game
-This React application keeps track of the user's score. The user's score should be incremented when clicked on an image for the first time. The user's score should be reset to 0 if user clicked the same image more than once. This project shows the use of React's components and rendering new states to the DOM on each lick.
+This React application keeps track of the user's score. The user's score is incremented when an image is clicked for the first time, and reset to 0 if the user clicks the same image more than once. This project shows the use of React components and rendering new state to the DOM on each click.
 
 - Every time an image is clicked, the images shuffle themselves in a random order.
-- The application keeps track of the user's score. The user's score is incremented when clicked on an image for the first time. 
+- The application keeps track of the user's score. The user's score is incremented when an image is clicked for the first time.
 - The user's score is reset to 0 if they click the same image more than once.
 - Once the user's score is reset after an incorrect guess, the game restarts.
+- Clicking all twelve images without a repeat wins the round; the next click starts a new one.
 
 ## Technologies used
 - React
@@ -15,19 +16,21 @@ This React application keeps track of the user's score. The user's score should 
 - JSX
 
 ## Node dependencies
-- create-react-app
+- create-react-app (react-scripts)
 - react
 - react-dom
-- react-scripts
-- radium
+- bootstrap
 
 ## Installation
 - clone the repository
 - change into the new directory
-- npm install
+- `npm install`
 
 ## Running
-- yarn start
+- `npm start` (or `yarn start`) to run the development server at http://localhost:3000
+- `npm test` to run the unit tests
+- `npm run build` to create a production build in `build/`
+- `npm run deploy` to publish the build to GitHub Pages
 
 ## Screenshots
 
