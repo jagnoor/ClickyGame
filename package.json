@@ -2,7 +2,7 @@
   "name": "rp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://radhikabgupta.github.io/ClickyGame/",
+  "homepage": "https://jagnoor.github.io/ClickyGame/",
   "dependencies": {
     "bootstrap": "3.4.1",
     "gh-pages": "^1.2.0",
