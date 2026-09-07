@@ -1,15 +1,15 @@
-
 import React from "react";
 import "./FriendCard.css";
 
 const FriendCard = props => (
-  <div 
-    className="card" 
-    value={props.id} 
+  <div
+    className="card"
+    data-testid="friend-card"
+    data-id={props.id}
     onClick={() => props.handleClick(props.id)}
   >
     <div className="img-container">
-      <img alt={props.name} src={props.image} />
+      <img alt={`Friend ${props.id}`} src={props.image} />
     </div>
   </div>
 );
