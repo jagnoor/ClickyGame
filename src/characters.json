@@ -1,0 +1,18 @@
+[
+  { "id": 1, "name": "Rick Sanchez", "image": "characters/rick-sanchez.jpeg" },
+  { "id": 2, "name": "Morty Smith", "image": "characters/morty-smith.jpeg" },
+  { "id": 3, "name": "Summer Smith", "image": "characters/summer-smith.jpeg" },
+  { "id": 4, "name": "Beth Smith", "image": "characters/beth-smith.jpeg" },
+  { "id": 5, "name": "Jerry Smith", "image": "characters/jerry-smith.jpeg" },
+  { "id": 6, "name": "Birdperson", "image": "characters/birdperson.jpeg" },
+  { "id": 7, "name": "Mr. Meeseeks", "image": "characters/mr-meeseeks.jpeg" },
+  { "id": 8, "name": "Mr. Poopybutthole", "image": "characters/mr-poopybutthole.jpeg" },
+  { "id": 9, "name": "Pickle Rick", "image": "characters/pickle-rick.jpeg" },
+  { "id": 10, "name": "Evil Morty", "image": "characters/evil-morty.jpeg" },
+  { "id": 11, "name": "Squanchy", "image": "characters/squanchy.jpeg" },
+  { "id": 12, "name": "Snuffles", "image": "characters/snuffles.jpeg" },
+  { "id": 13, "name": "Scary Terry", "image": "characters/scary-terry.jpeg" },
+  { "id": 14, "name": "Abradolf Lincler", "image": "characters/abradolf-lincler.jpeg" },
+  { "id": 15, "name": "Jessica", "image": "characters/jessica.jpeg" },
+  { "id": 16, "name": "Toxic Rick", "image": "characters/toxic-rick.jpeg" }
+]

@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Simulate } from "react-dom/test-utils";
-import App, { MESSAGES, shuffleFriends } from "./App";
-import friends from "./friends.json";
+import App, { MESSAGES, shuffleCharacters } from "./App";
+import characters from "./characters.json";
 
 function mount() {
   const div = document.createElement("div");
@@ -12,18 +12,22 @@ function mount() {
 }
 
 function cards(div) {
-  return Array.from(div.querySelectorAll('[data-testid="friend-card"]'));
+  return Array.from(div.querySelectorAll('[data-testid="character-card"]'));
 }
 
 function cardWithId(div, id) {
   return div.querySelector(`[data-id="${id}"]`);
 }
 
-function scoreText(div) {
-  return div.querySelector(".alignRight").textContent;
+function score(div) {
+  return div.querySelector('[data-testid="score"]').textContent;
 }
 
-function messageText(div) {
+function topScore(div) {
+  return div.querySelector('[data-testid="top-score"]').textContent;
+}
+
+function message(div) {
   return div.querySelector("#rw").textContent;
 }
 
@@ -31,58 +35,67 @@ afterEach(() => {
   document.body.innerHTML = "";
 });
 
-it("renders one card per friend", () => {
+it("has exactly 16 characters with unique ids, names, and images", () => {
+  expect(characters).toHaveLength(16);
+  const unique = key => new Set(characters.map(c => c[key])).size;
+  expect(unique("id")).toBe(16);
+  expect(unique("name")).toBe(16);
+  expect(unique("image")).toBe(16);
+});
+
+it("renders one card per character with the starting message", () => {
   const div = mount();
-  expect(cards(div)).toHaveLength(friends.length);
-  expect(scoreText(div)).toBe("Score - Top: 0 | Current: 0");
+  expect(cards(div)).toHaveLength(16);
+  expect(score(div)).toBe("0/16");
+  expect(topScore(div)).toBe("0");
+  expect(message(div)).toBe(MESSAGES.start);
 });
 
 it("increments the score on a first click and shuffles the cards", () => {
   const div = mount();
-  const orderBefore = cards(div).map(c => c.getAttribute("data-id"));
+  const before = cards(div).map(c => c.getAttribute("data-id"));
 
   Simulate.click(cardWithId(div, 1));
 
-  expect(scoreText(div)).toBe("Score - Top: 1 | Current: 1");
-  expect(messageText(div)).toBe(MESSAGES.correct);
-  // Every card should still be present after the shuffle
-  const orderAfter = cards(div).map(c => c.getAttribute("data-id"));
-  expect(orderAfter.slice().sort()).toEqual(orderBefore.slice().sort());
+  expect(score(div)).toBe("1/16");
+  expect(topScore(div)).toBe("1");
+  expect(message(div)).toBe(MESSAGES.correct);
+  const after = cards(div).map(c => c.getAttribute("data-id"));
+  expect(after.slice().sort()).toEqual(before.slice().sort());
 });
 
-it("resets the current score but keeps the top score on a repeat click", () => {
+it("resets the current score but keeps the best score on a repeat click", () => {
   const div = mount();
   Simulate.click(cardWithId(div, 1));
   Simulate.click(cardWithId(div, 2));
   Simulate.click(cardWithId(div, 1));
 
-  expect(scoreText(div)).toBe("Score - Top: 2 | Current: 0");
-  expect(messageText(div)).toBe(MESSAGES.incorrect);
+  expect(score(div)).toBe("0/16");
+  expect(topScore(div)).toBe("2");
+  expect(message(div)).toBe(MESSAGES.incorrect);
 
-  // A previously clicked card counts again after the reset
   Simulate.click(cardWithId(div, 2));
-  expect(scoreText(div)).toBe("Score - Top: 2 | Current: 1");
+  expect(score(div)).toBe("1/16");
 });
 
-it("declares a win after every card is clicked once and then starts a new game", () => {
+it("wins at 16 and then starts a new game on the next click", () => {
   const div = mount();
-  friends.forEach(friend => Simulate.click(cardWithId(div, friend.id)));
+  characters.forEach(c => Simulate.click(cardWithId(div, c.id)));
 
-  expect(scoreText(div)).toBe(
-    `Score - Top: ${friends.length} | Current: ${friends.length}`
-  );
-  expect(messageText(div)).toBe(MESSAGES.win);
+  expect(score(div)).toBe("16/16");
+  expect(topScore(div)).toBe("16");
+  expect(message(div)).toBe(MESSAGES.win);
 
-  // The next click begins a fresh round instead of counting as a repeat
   Simulate.click(cardWithId(div, 1));
-  expect(scoreText(div)).toBe(`Score - Top: ${friends.length} | Current: 1`);
-  expect(messageText(div)).toBe(MESSAGES.correct);
+  expect(score(div)).toBe("1/16");
+  expect(topScore(div)).toBe("16");
+  expect(message(div)).toBe(MESSAGES.correct);
 });
 
-it("shuffleFriends returns a new array with the same items", () => {
-  const input = friends.slice();
-  const output = shuffleFriends(input);
+it("shuffleCharacters returns a new array with the same items", () => {
+  const input = characters.slice();
+  const output = shuffleCharacters(input);
   expect(output).not.toBe(input);
-  expect(input).toEqual(friends);
-  expect(output.slice().sort((a, b) => a.id - b.id)).toEqual(friends);
+  expect(input).toEqual(characters);
+  expect(output.slice().sort((a, b) => a.id - b.id)).toEqual(characters);
 });

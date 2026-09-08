@@ -4,7 +4,6 @@
   "private": true,
   "homepage": "https://jagnoor.github.io/ClickyGame/",
   "dependencies": {
-    "bootstrap": "3.4.1",
     "gh-pages": "^1.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

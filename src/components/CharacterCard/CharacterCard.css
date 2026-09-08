@@ -1,0 +1,99 @@
+.card {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 14px;
+  border: 3px solid var(--portal);
+  background: var(--space-2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5), 0 0 12px rgba(151, 206, 76, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.card:focus-visible {
+  box-shadow: 0 0 0 3px var(--plasma), 0 0 16px var(--portal-glow);
+}
+
+.card__frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding-top: 100%; /* square box on every browser */
+  overflow: hidden;
+  border-radius: 11px;
+}
+
+.card__image {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  -webkit-user-drag: none;
+}
+
+.card__name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px 5px 5px;
+  font-family: var(--display-font);
+  font-size: clamp(0.6rem, 2.4vw, 1rem);
+  letter-spacing: 0.05em;
+  line-height: 1.05;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000, 0 0 6px rgba(0, 0, 0, 0.8);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.78) 45%);
+  overflow-wrap: anywhere;
+}
+
+/* Landscape phones show 8 small cards per row */
+@media (orientation: landscape) and (max-height: 500px) {
+  .card__name {
+    font-size: 0.55rem;
+    letter-spacing: 0.02em;
+    padding-top: 8px;
+  }
+}
+
+/* Press feedback works on touch and mouse */
+.card:active {
+  transform: scale(0.95);
+  border-color: var(--morty-yellow);
+}
+
+/* Lift on hover only for devices that actually hover (not touch screens) */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-4px) scale(1.04);
+    border-color: var(--plasma);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 22px var(--portal-glow);
+  }
+}
+
+@media (max-width: 360px) {
+  .card__name {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .nav__portal {
+    transition: none;
+    animation: none;
+  }
+}
