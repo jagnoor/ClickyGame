@@ -1,42 +1,151 @@
-nav {
-    width: 100%;
-    font-size: 1.5rem;
-    color: #fff;
-    margin-bottom: 20px;
-    background-color:  rgba(253, 173, 1, 0.788);
-    height: auto;
-    font-family: 'Sanchez', serif, cursive;
+.nav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(180deg, rgba(21, 29, 56, 0.98), rgba(11, 15, 30, 0.96));
+  border-bottom: 3px solid var(--portal);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45), 0 0 18px var(--portal-glow);
+  padding-top: env(safe-area-inset-top);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav--bad {
+  border-bottom-color: var(--danger);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45), 0 0 18px rgba(255, 92, 122, 0.55);
+}
+
+.nav--win {
+  border-bottom-color: var(--morty-yellow);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45), 0 0 22px rgba(246, 224, 94, 0.6);
+}
+
+.nav__inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 8px clamp(10px, 3vw, 24px);
+  padding-left: max(clamp(10px, 3vw, 24px), env(safe-area-inset-left));
+  padding-right: max(clamp(10px, 3vw, 24px), env(safe-area-inset-right));
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "brand scores"
+    "message message";
+  align-items: center;
+  column-gap: 12px;
+  row-gap: 4px;
+}
+
+.nav__brand {
+  grid-area: brand;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: var(--portal);
+  text-decoration: none;
+}
+
+.nav__brand:hover {
+  color: var(--portal);
+  text-decoration: none;
+}
+
+.nav__portal {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #eaffc7 0 12%, transparent 13%),
+    conic-gradient(from 0deg, #4f8f1f, #97ce4c, #d6ff9a, #97ce4c, #2f6a12, #97ce4c, #4f8f1f);
+  box-shadow: 0 0 14px var(--portal-glow), inset 0 0 6px rgba(0, 0, 0, 0.5);
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-  
-  a {
-    color: #070000;
-    font-size: 2.6rem;
+}
+
+.nav__title {
+  font-family: var(--display-font);
+  font-size: clamp(1.35rem, 4.5vw, 2.3rem);
+  letter-spacing: 0.06em;
+  line-height: 0.95;
+  text-shadow: 0 0 12px var(--portal-glow), 2px 2px 0 #000;
+}
+
+.nav__message {
+  grid-area: message;
+  margin: 0;
+  min-height: 1.3em;
+  font-size: clamp(0.85rem, 2.8vw, 1.05rem);
+  color: var(--text-muted);
+}
+
+.nav--good .nav__message {
+  color: var(--portal);
+}
+
+.nav--bad .nav__message {
+  color: var(--danger);
+}
+
+.nav--win .nav__message {
+  color: var(--morty-yellow);
+  font-weight: 600;
+}
+
+.nav__scores {
+  grid-area: scores;
+  display: flex;
+  gap: 14px;
+  flex: none;
+}
+
+.nav__score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+}
+
+.nav__label {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.nav__value {
+  font-family: var(--display-font);
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  color: var(--morty-yellow);
+  text-shadow: 2px 2px 0 #000;
+  letter-spacing: 0.04em;
+}
+
+.nav__value small {
+  font-size: 0.55em;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+
+@media (min-width: 960px) {
+  .nav__inner {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "brand message scores";
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
-  
-  a:hover {
-    color: black;
-    text-decoration: none;
+
+  .nav__title {
+    white-space: nowrap;
   }
-  
-  nav li {
-    display: inline-block;
-    padding: 10px 0;
-    width: 33.33%;
+
+  .nav__message {
     text-align: center;
   }
-  
-  ul {
-    padding-left: 0px;
-  }
-
-  .alignLeft{
-    text-align: left;
-    padding-left: 1%;
-  }
-
-  .alignRight{
-    color: black;
-    text-align: right;
-    padding-right: 1%;
-    font-size: 2.2rem;
-  }
+}

@@ -1,16 +1,11 @@
 import React, { Component } from "react";
-import FriendCard from "./components/FriendCard";
 import Nav from "./components/Nav";
-import Wrapper from "./components/Wrapper";
-import Title from "./components/Title";
-import Container from "./Container";
-import Row from "./Row";
-import Column from "./Column";
-import friends from "./friends.json";
+import CharacterCard from "./components/CharacterCard";
+import characters from "./characters.json";
 import "./App.css";
 
 // Fisher-Yates shuffle that returns a new array instead of mutating the input
-export function shuffleFriends(array) {
+export function shuffleCharacters(array) {
   const shuffled = array.slice();
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -20,23 +15,25 @@ export function shuffleFriends(array) {
 }
 
 export const MESSAGES = {
-  correct: "You guessed correctly!",
-  incorrect: "You guessed incorrectly!",
-  win: "You win! Click any image to play again."
+  start: "Tap a character to start",
+  correct: "Nice! Keep going.",
+  incorrect: "Aw geez, you already clicked that one!",
+  win: "Wubba Lubba Dub Dub! You got all 16. Tap any character to play again."
 };
 
 class App extends Component {
   state = {
-    friends,
+    characters,
     currentScore: 0,
     topScore: 0,
-    correctIncorrect: "",
+    message: MESSAGES.start,
+    status: "",
     clicked: []
   };
 
   handleClick = id => {
-    const { clicked, currentScore, topScore, friends } = this.state;
-    const total = friends.length;
+    const { clicked, currentScore, topScore, characters } = this.state;
+    const total = characters.length;
     // A finished round stays on screen until the next click starts a new game
     const startingNewGame = currentScore === total;
 
@@ -51,48 +48,60 @@ class App extends Component {
     this.setState({
       currentScore: newScore,
       topScore: Math.max(topScore, newScore),
-      correctIncorrect: won ? MESSAGES.win : MESSAGES.correct,
+      message: won ? MESSAGES.win : MESSAGES.correct,
+      status: won ? "win" : "good",
       clicked: startingNewGame ? [id] : clicked.concat(id),
-      friends: shuffleFriends(friends)
+      characters: shuffleCharacters(characters)
     });
   };
 
   handleReset = () => {
     this.setState({
       currentScore: 0,
-      correctIncorrect: MESSAGES.incorrect,
+      message: MESSAGES.incorrect,
+      status: "bad",
       clicked: [],
-      friends: shuffleFriends(this.state.friends)
+      characters: shuffleCharacters(this.state.characters)
     });
   };
 
   render() {
+    const total = this.state.characters.length;
     return (
-      <Wrapper>
+      <div className="app">
         <Nav
-          title="React Clicky Game"
+          title="Rick and Morty Clicky Game"
           score={this.state.currentScore}
           topScore={this.state.topScore}
-          correctIncorrect={this.state.correctIncorrect}
+          total={total}
+          message={this.state.message}
+          status={this.state.status}
         />
 
-        <Title>
-          Click on an image to earn points, but don't click on any more than once!
-        </Title>
-        <Container>
-          <Row>
-            {this.state.friends.map(friend => (
-              <Column key={friend.id} size="md-3 sm-6">
-                <FriendCard
-                  handleClick={this.handleClick}
-                  id={friend.id}
-                  image={friend.image}
-                />
-              </Column>
+        <main className="board">
+          <p className="instructions">
+            Tap each character once to win. Tap one twice and Rick sends you
+            back to zero.
+          </p>
+
+          <div className="grid" data-testid="grid">
+            {this.state.characters.map(character => (
+              <CharacterCard
+                key={character.id}
+                id={character.id}
+                name={character.name}
+                image={`${process.env.PUBLIC_URL}/${character.image}`}
+                handleClick={this.handleClick}
+              />
             ))}
-          </Row>
-        </Container>
-      </Wrapper>
+          </div>
+        </main>
+
+        <footer className="footer">
+          Fan project. Rick and Morty and all character images are the property
+          of Adult Swim. Images via the Rick and Morty API.
+        </footer>
+      </div>
     );
   }
 }
