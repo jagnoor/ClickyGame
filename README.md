@@ -11,7 +11,7 @@ Live site: https://jagnoor.github.io/ClickyGame/
 - Reaching 16 wins the round. The next click starts a fresh game.
 
 ## Characters
-Rick Sanchez, Morty Smith, Summer Smith, Beth Smith, Jerry Smith, Birdperson, Mr. Meeseeks, Mr. Poopybutthole, Pickle Rick, Evil Morty, Squanchy, Snuffles, Scary Terry, Abradolf Lincler, Jessica, and Toxic Rick.
+Rick Sanchez, Morty Smith, Summer Smith, Beth Smith, Jerry Smith, Birdperson, Mr. Meeseeks, Krombopulos Michael, Pickle Rick, Evil Morty, Squanchy, Snuffles, Scary Terry, Abradolf Lincler, Jessica, and Toxic Rick.
 
 Portraits are 300x300 JPEGs bundled in `public/characters/`, sourced from the open source [Rick and Morty API](https://github.com/afuh/rick-and-morty-api). Rick and Morty and its characters are the property of Adult Swim. This is a non-commercial fan project.
 
