@@ -9,18 +9,42 @@
   width: 100%;
   max-width: 960px;
   /* Keep all 16 cards on one screen when the viewport is short and wide */
-  max-width: min(960px, calc(100vh - 150px));
+  max-width: min(960px, calc(100vh - 240px));
   margin: 0 auto;
   padding: 0 clamp(10px, 3vw, 24px) 24px;
   padding-left: max(clamp(10px, 3vw, 24px), env(safe-area-inset-left));
   padding-right: max(clamp(10px, 3vw, 24px), env(safe-area-inset-right));
 }
 
-.instructions {
-  text-align: center;
-  color: var(--text-muted);
-  font-size: clamp(0.85rem, 2.6vw, 1.1rem);
+.howto {
   margin: 14px 0 16px;
+  padding: 10px 14px;
+  border-left: 4px solid var(--portal);
+  border-radius: 8px;
+  background: rgba(21, 29, 56, 0.75);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.howto__title {
+  margin: 0 0 6px;
+  font-family: var(--display-font);
+  font-weight: 400;
+  font-size: clamp(1rem, 3.4vw, 1.4rem);
+  letter-spacing: 0.06em;
+  color: var(--portal);
+  text-shadow: 1px 1px 0 #000;
+}
+
+.howto__list {
+  margin: 0;
+  padding-left: 1.1em;
+  color: var(--text-muted);
+  font-size: clamp(0.8rem, 2.5vw, 0.98rem);
+  line-height: 1.35;
+}
+
+.howto__list li + li {
+  margin-top: 3px;
 }
 
 .grid {
@@ -38,8 +62,27 @@
     grid-template-columns: repeat(8, minmax(0, 1fr));
     gap: 8px;
   }
-  .instructions {
-    margin: 8px 0 10px;
+  .howto {
+    margin: 6px 0 8px;
+    padding: 5px 10px;
+  }
+  .howto__title {
+    display: none;
+  }
+  .howto__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 12px;
+    list-style: none;
+    padding: 0;
+    font-size: 0.7rem;
+    line-height: 1.25;
+  }
+  .howto__list li + li {
+    margin-top: 0;
+  }
+  .footer {
+    display: none;
   }
 }
 

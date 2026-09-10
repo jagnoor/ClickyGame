@@ -79,10 +79,26 @@ class App extends Component {
         />
 
         <main className="board">
-          <p className="instructions">
-            Tap each character once to win. Tap one twice and Rick sends you
-            back to zero.
-          </p>
+          <section className="howto" aria-labelledby="howto-title">
+            <h2 id="howto-title" className="howto__title">
+              How to play (listen up, Morty)
+            </h2>
+            <ul className="howto__list">
+              <li>
+                It's a memory game. Click all 16 characters, one time each,
+                without repeating anyone.
+              </li>
+              <li>
+                Click the same character twice and you get sent back to zero.
+                No refunds.
+              </li>
+              <li>
+                The cards shuffle after every click, so remember faces, not
+                spots. Get all 16 and you win. Simple. Even Jerry could do it.
+                Probably.
+              </li>
+            </ul>
+          </section>
 
           <div className="grid" data-testid="grid">
             {this.state.characters.map(character => (
